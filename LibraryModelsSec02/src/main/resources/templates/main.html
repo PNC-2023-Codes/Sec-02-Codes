@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Handlee&family=Montserrat:wght@300;400&family=Roboto:wght@300;400&family=Space+Mono&display=swap" rel="stylesheet">
+  
+  <title> Library </title>
+
+  <style>
+    * {
+      padding: 0;
+      margin: 0;
+      box-sizing: border-box;
+      font-family: "Roboto", sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;  
+    }
+
+    main {
+      padding: 1rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+
+      gap: 0.5rem;
+
+      flex: 1 0;
+      width: 100%;
+    }
+
+    main form {
+      width: 100%;
+      max-width: 500px;
+      padding: 1rem;
+      margin-top: 2rem  ;
+
+      background: #eee;
+      border-radius: 10px;
+
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    main form label {
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+    
+    main form label>div.errors {
+		padding: 0.5rem;
+		
+		background: crimson;
+		border-radius: 0.5rem;
+		
+		display: flex;
+		flex-direction: column;
+		gap: 0.25rem;
+		
+		color: white;
+		font-weight: 300;
+		font-size: 0.75rem;
+	}
+    
+    main form.errors {
+      border: 1px solid crimson;
+    }
+
+    footer {
+      background-color: indigo;
+      padding: 1rem;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      color: white;
+      font-size: 0.8rem;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <h1> Library (<a href="/library/all"> Ver Libros </a>) </h1>
+    <h2> {{#time}} {{.}} {{/time}} </h2>
+    
+    <form action="/library/save" method="POST" class="{{#hasErrors}} errors {{/hasErrors}}">
+      <label for="isbn-field">
+        ISBN:
+        <input type="text" name="isbn" id="isbn-field" required>
+        {{#isbn_errors}}
+        <div class="errors">
+			{{#messages}}
+				<p>{{.}}</p>
+			{{/messages}}
+		</div>
+		{{/isbn_errors}}
+      </label>
+
+      <label for="title-field">
+        Title:
+        <input type="text" name="title" id="title-field" required>
+        
+        {{#title_errors}}
+        <div class="errors">
+			{{#messages}}
+				<p>{{.}}</p>
+			{{/messages}}
+		</div>
+		{{/title_errors}}
+      </label>
+
+      <label for="owner-field">
+        Owner:
+        <input type="text" name="owner" id="owner-field" required>
+        {{#owner_errors}}
+        <div class="errors">
+			{{#messages}}
+				<p>{{.}}</p>
+			{{/messages}}
+		</div>
+		{{/owner_errors}}
+      </label>
+
+      <input type="submit" value="Register">
+    </form>
+  </main>
+    
+    {{>footer}}
+</body>
+</html>
